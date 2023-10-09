@@ -1,0 +1,8 @@
+int n1, n2, n3;
+
+print("Enter three numbers: ");
+input(n1, n2, n3);
+
+int maximum = max(n1, n2, n3);
+
+print("Maximum: ", maximum);

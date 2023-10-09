@@ -1,0 +1,13 @@
+int 1n; ////////////
+
+print("Enter a numbers: "); //////////
+input(n);
+
+for (int i = 2 in (n - 1)) {
+    if (n % i == 0) {
+        print("It is not prime.");
+        return;
+    }
+}
+
+print("Is prime!);

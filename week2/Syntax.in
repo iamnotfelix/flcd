@@ -1,0 +1,24 @@
+program ::= decllist cmpdstmt
+
+decllist ::= declaration ";" | declaration ";" decllist
+declaration ::= type " " IDENTIFIER
+type1 ::= "int" | "float" | "char" | "string" | "bool"
+arraydecl ::= type1 "list" "[" nr "]"
+type  ::= type1 | arraydecl
+
+cmpdstmt ::= "{" stmtlist "}"
+stmtlist ::= stmt ";" | stmt ";" stmtlist
+stmt ::= simplstmt | structstmt
+simplstmt ::= assignstmt | iostmt
+
+assignstmt ::= IDENTIFIER "=" expression
+expression ::= expression "+" term | term
+term ::= term "*" factor | factor
+
+factor ::= "(" expression ")" | IDENTIFIER
+iostmt ::= "input" | "print" "(" IDENTIFIER ")"
+structstmt ::= cmpdstmt | ifstmt | forstmt
+ifstmt ::= "if" condition "else" stmt ["ELSE" stmt]
+forstmt ::= "for" "(" declaration assignstmt "in" IDENTIFIER ")" "{" stmt "}"
+condition ::= expression RELATION expression
+RELATION ::= "<" | "<=" | "==" | "!=" | ">=" | ">"

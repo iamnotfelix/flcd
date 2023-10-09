@@ -1,0 +1,13 @@
+int n1, n2;
+
+print("Enter two numbers: ");
+input(n1, n2);
+
+while (n1 != n2) {
+    if(n1 > n2)
+        n1 -= n2;
+    else
+        n2 -= n1;
+}
+
+print("gcd = ", n1);
