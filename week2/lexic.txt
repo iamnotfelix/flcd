@@ -1,8 +1,9 @@
 Alphabet:
 
 a. Upper (A-Z) and lower case letters (a-z) of the English alphabet
-b. Underline character '_';
-c. Decimal digits (0-9);
+b. Underline character '_'
+c. Decimal digits (0-9)
+(* d. All special characters from the keyboard (!, @,  etc.) *)
 
 Lexic:
 
@@ -10,10 +11,9 @@ a. Special symbols, representing:
 
 - operators:
     = + - * / % 
-    += -= *= /= 
     < > <= >= == !=
 
-- separators [ ] { } ; space
+- separators [ ] { } ; , space
 
 - reserved words:
     int char bool string list
@@ -24,24 +24,30 @@ b. Identifiers
 
 - a sequence of letters and  digits, such that the first character is a letter or underscore followed by letter, the rule is:
 
-    identifier ::= letter | underscore letter {letter} | letter{letter}{digit}
-    letter ::= "A" | "B" | . ..| "Z"
-    digit ::= "0" | "1" |...| "9"
-    underscore ::= "_"
+    identifier = {underscore} | {underscore}letter{all}
+    all = lower_letter | upper_letter | digit | underscore
+    letter = upper_letter | lower_letter
+    upper_letter = "A" | "B" | ... | "Z"
+    lower_letter = "a" | "b" | ... | "z 
+    digit = "0" | "1" |...| "9"
+    underscore = "_"
 
 c. Constants
 
 1. integer - rule:
 
-    noconst := "+"no | "-"no | no
-    no := digit{no}
+    integer = "+"digit{digit} | "-"digit{digit} | digit{digit}
 
 2. character
 
-    character := 'letter' | 'digit' | 'specialCharacter'
-    specialCharacter := "!" | "@" ... {any other character}
+    character = 'letter' | 'digit' | 'specialCharacter'
+    specialCharacter = "!" | "@" ... {any other character}
 
 3. string
 
-    constchar := "string"
-    string := character{string}
+    string = "{character}"
+
+4. bool
+
+    bool = "true" | "false" | "0" | "1"
+

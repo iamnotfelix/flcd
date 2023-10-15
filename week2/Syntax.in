@@ -1,3 +1,18 @@
+(*program = { declarations | statements }
+
+declarations = declaration | list_declaration
+declaration = type " " variable{","variable}";"
+list_declaration = "list" " " type "[" NUMBER_CONSTANT "]" IDENTIFIER";"
+variable = IDENTIFIER["="CONSTANT]{","IDENTIFIER["="CONSTANT]}
+type = "int" | "char" | "bool" | "string"
+
+statements = { assign_statement | list_assign_statement | io_statement |}
+assign_statement = IDENTIFIER "=" expression";"
+list_assign_statement = IDENTIFIER"[" NUMBER_CONSTANT "]" "=" expression";"
+expression = expression "+" term | term
+term = term "*" factor | factor
+*)
+
 program ::= decllist cmpdstmt
 
 decllist ::= declaration ";" | declaration ";" decllist
