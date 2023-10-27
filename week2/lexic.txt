@@ -13,11 +13,11 @@ a. Special symbols, representing:
     = + - * / % 
     < > <= >= == !=
 
-- separators [ ] { } ; , space
+- separators ( ) [ ] { } ; , " space
 
 - reserved words:
-    int char bool string list
-    if else for in return
+    int bool string list
+    if else while return
     print input min max
 
 b. Identifiers
@@ -38,14 +38,10 @@ c. Constants
 
     integer = "+"digit{digit} | "-"digit{digit} | digit{digit}
 
-2. character
-
-    character = 'letter' | 'digit' | 'specialCharacter'
-    specialCharacter = "!" | "@" ... {any other character}
-
 3. string
 
-    string = "{character}"
+    string = "{letter | digit | specialCharacter}"
+    specialCharacter = "!" | "@" ... {any other character}
 
 4. bool
 

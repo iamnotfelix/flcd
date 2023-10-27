@@ -1,39 +1,36 @@
-(*program = { declarations | statements }
+program = { declarations | statements }
 
 declarations = declaration | list_declaration
 declaration = type " " variable{","variable}";"
 list_declaration = "list" " " type "[" NUMBER_CONSTANT "]" IDENTIFIER";"
-variable = IDENTIFIER["="CONSTANT]{","IDENTIFIER["="CONSTANT]}
-type = "int" | "char" | "bool" | "string"
+variable = IDENTIFIER["="value]{","IDENTIFIER["="value]}
+type = "int" | "bool" | "string"
+value = (CONSTANT|IDENTIFIER)
 
-statements = { assign_statement | list_assign_statement | io_statement |}
+statements = { 
+    assign_statement | 
+    list_assign_statement | 
+    i_statement | 
+    o_statement | 
+    min_max_statement |
+    if_else_statement |
+    while_statement |
+    "return"";"
+}
+
 assign_statement = IDENTIFIER "=" expression";"
 list_assign_statement = IDENTIFIER"[" NUMBER_CONSTANT "]" "=" expression";"
-expression = expression "+" term | term
-term = term "*" factor | factor
-*)
+expression = ["("] expression arithmetic_operators expression [")"] | IDENTIFIER | CONSTANT
+arithmetic_operators = "+" | "-" | "*" | "/" | "%"
 
-program ::= decllist cmpdstmt
+i_statement = "input" "(" IDENTIFIER ")" ";"
+o_statement = "print" "(" {IDENTIFIER | CONSTANT} ")" ";"
+min_max_statement = min_max "("value{","value}")"";"
+min_max = "min" | "max"
 
-decllist ::= declaration ";" | declaration ";" decllist
-declaration ::= type " " IDENTIFIER
-type1 ::= "int" | "float" | "char" | "string" | "bool"
-arraydecl ::= type1 "list" "[" nr "]"
-type  ::= type1 | arraydecl
+if_else_statement = "if" "(" logical_expression ")" "{" statements "}" []
+else_statement = "else" "{" statements "}" 
+logical_expression = value logical_operators value
+logical_operators = "<" | ">" | "<=" | ">=" | "==" | "!="
 
-cmpdstmt ::= "{" stmtlist "}"
-stmtlist ::= stmt ";" | stmt ";" stmtlist
-stmt ::= simplstmt | structstmt
-simplstmt ::= assignstmt | iostmt
-
-assignstmt ::= IDENTIFIER "=" expression
-expression ::= expression "+" term | term
-term ::= term "*" factor | factor
-
-factor ::= "(" expression ")" | IDENTIFIER
-iostmt ::= "input" | "print" "(" IDENTIFIER ")"
-structstmt ::= cmpdstmt | ifstmt | forstmt
-ifstmt ::= "if" condition "else" stmt ["ELSE" stmt]
-forstmt ::= "for" "(" declaration assignstmt "in" IDENTIFIER ")" "{" stmt "}"
-condition ::= expression RELATION expression
-RELATION ::= "<" | "<=" | "==" | "!=" | ">=" | ">"
+while_statement = "while" "(" logical_expression ")" "{" statements "}"
