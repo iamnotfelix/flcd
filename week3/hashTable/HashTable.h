@@ -36,24 +36,43 @@ public:
     int size;
     vector<list<Node>> table;
 
+    HashTable();
     HashTable(int size);
-    void insert(T value);
+    int insert(T value);
     pair<bool, int> search(T key);
     void displayHash();
+
+    HashTable& operator=(const HashTable& table);
 };
 
 
 template<class T>
-HashTable<T>::HashTable(int size) {
-    this->size = size;
+HashTable<T>::HashTable() {
+    this->size = 0;
     this->codeIndex = 0;
-
     this->table = vector<list<Node>>(size);
 }
 
 template<class T>
-void HashTable<T>::insert(T value) {
-    if (this->search(value).first) return;
+HashTable<T>::HashTable(int size) {
+    this->size = size;
+    this->codeIndex = 1;
+    this->table = vector<list<Node>>(size);
+}
+
+template<class T>
+HashTable<T>& HashTable<T>::operator=(const HashTable<T>& table) {
+    this->size = table.size;
+    this->codeIndex = table.codeIndex;
+    this->table = table.table;
+
+    return *this;
+}
+
+template<class T>
+int HashTable<T>::insert(T value) {
+    auto search = this->search(value);
+    if (search.first) return search.second;
  
     stringstream ss;
     ss << value;
@@ -65,6 +84,8 @@ void HashTable<T>::insert(T value) {
     tmp.value = value;
 
     this->table[hash].push_back(tmp);
+
+    return tmp.code;
 }
 
 template<class T>
