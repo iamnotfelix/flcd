@@ -1,8 +1,11 @@
 int n1, n2, n3;
 
 print("Enter three numbers: ");
-input(n1, n2, n3);
+input(n1);
+input(n2);
+input(n3);
 
 int maximum = max(n1, n2, n3);
 
-print("Maximum: ", maximum);
+print("Maximum: ");
+print(maximum);
