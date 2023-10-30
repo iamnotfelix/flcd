@@ -41,6 +41,7 @@ public:
     int insert(T value);
     pair<bool, int> search(T key);
     void displayHash();
+    void dumpToFile();
 
     HashTable& operator=(const HashTable& table);
 };
@@ -109,6 +110,16 @@ void HashTable<T>::displayHash() {
     for (auto l : this->table) {
         for (auto node : l) {
             cout << node.value << " " << node.code << endl;
+        }
+    }
+}
+
+template<class T>
+void HashTable<T>::dumpToFile() {
+    ofstream g("st.out");
+    for (auto l : this->table) {
+        for (auto node : l) {
+            g << node.value << " " << node.code << endl;
         }
     }
 }

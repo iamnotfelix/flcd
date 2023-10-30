@@ -34,8 +34,9 @@ int main()
 	);
 	try
 	{
-		scanner.scan("C:\\Users\\andre\\Desktop\\folders\\facultate\\sem_5\\compilers\\week1\\p1err.ili");
-		scanner.displayPif();
+		scanner.scan("C:\\Users\\andre\\Desktop\\folders\\facultate\\sem_5\\compilers\\week1\\p1.ili");
+		//scanner.displayPif();
+		scanner.dumpToFile();
 	}
 	catch (runtime_error e)
 	{

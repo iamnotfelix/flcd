@@ -37,6 +37,7 @@ public:
 		string operatorsFilename,
 		string reservedWordsFilename
 	);
-	void scan(string outputFile);
+	void scan(string source);
 	void displayPif();
+	void dumpToFile();
 };

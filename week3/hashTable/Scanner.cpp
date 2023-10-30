@@ -185,3 +185,14 @@ void Scanner::displayPif()
 		cout << this->codesToAtom[atomCode] << " " << index << endl;
 	}
 }
+
+void Scanner::dumpToFile()
+{
+	this->symbolTable.dumpToFile();
+
+	ofstream g("pif.out");
+	for (auto [atomCode, index] : this->pif)
+	{
+		g << atomCode << " " << index << endl;
+	}
+}
