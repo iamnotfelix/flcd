@@ -1,6 +1,7 @@
 #pragma once
 
 #include "HashTable.h"
+#include "FiniteAutomata.h"
 
 #include <string>
 #include <vector>
@@ -22,6 +23,9 @@ private:
 	unordered_set<string> operators;
 	unordered_set<string> reservedWords;
 
+	FiniteAutomata faIntConst;
+	FiniteAutomata faIdentifier;
+
 	void readAtoms(string filename, unordered_set<string>& container);
 
 	bool isReservedWord(string atom);
@@ -35,7 +39,9 @@ public:
 		string tokensFilename,
 		string separatorsFilename,
 		string operatorsFilename,
-		string reservedWordsFilename
+		string reservedWordsFilename,
+		FiniteAutomata faIntConst,
+		FiniteAutomata faIdentifier
 	);
 	void scan(string source);
 	void displayPif();

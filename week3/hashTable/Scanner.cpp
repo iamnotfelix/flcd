@@ -12,8 +12,10 @@ Scanner::Scanner(
 	string tokensFilename,
 	string separatorsFilename,
 	string operatorsFilename,
-	string reservedWordsFilename
-) {
+	string reservedWordsFilename,
+	FiniteAutomata faIntConst,
+	FiniteAutomata faIdentifier
+) : faIntConst{ faIntConst }, faIdentifier{ faIdentifier } {
 	this->symbolTable = HashTable<string>(1000);
 
 	ifstream file(tokensFilename);
@@ -48,7 +50,8 @@ bool Scanner::isReservedWord(string atom)
 bool Scanner::isIdentifier(string atom) 
 {
 	if (atom.empty()) return false;
-	if (regex_match(atom, regex("^[a-zA-Z_][a-zA-Z0-9_]*$"))) return true;
+	return this->faIdentifier.check(atom);
+	//if (regex_match(atom, regex("^[a-zA-Z_][a-zA-Z0-9_]*$"))) return true;
 	return false;
 }
 
@@ -57,7 +60,8 @@ bool Scanner::isConstant(string atom)
 	if (atom.empty()) return false;
 
 	// Integer or boolean in number representation
-	if (regex_match(atom, regex("^[+-]?[0-9]*$"))) return true;
+	//if (regex_match(atom, regex("^[+-]?[0-9]*$"))) return true;
+	if (this->faIntConst.check(atom)) return true;
 	
 	// String
 	if (regex_match(atom, regex("^\".*\"$"))) return true;

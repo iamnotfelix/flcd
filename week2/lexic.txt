@@ -24,9 +24,9 @@ b. Identifiers
 
 - a sequence of letters and  digits, such that the first character is a letter or underscore followed by letter, the rule is:
 
-    identifier = {underscore} | {underscore}letter{all}
+    identifier = non_digit | non_digit{all}
+    non_digit = lower_letter | upper_letter | underscore
     all = lower_letter | upper_letter | digit | underscore
-    letter = upper_letter | lower_letter
     upper_letter = "A" | "B" | ... | "Z"
     lower_letter = "a" | "b" | ... | "z 
     digit = "0" | "1" |...| "9"
@@ -36,7 +36,11 @@ c. Constants
 
 1. integer - rule:
 
-    integer = "+"digit{digit} | "-"digit{digit} | digit{digit}
+    integer = sign non_zero_digit{all_digit} | non_zero_digit{all_digit} | zero
+    non_zero_digit = "1" |...| "9"
+    all_digit = "0" | "1" |...| "9"
+    sign = "-" | "+"
+    zero = "0"
 
 3. string
 
