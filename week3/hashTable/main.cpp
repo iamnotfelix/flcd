@@ -2,6 +2,7 @@
 #include "Scanner.h"
 #include "FiniteAutomata.h"
 #include "Menu.h"
+#include "Grammar.h"
 
 #include <iostream>
 
@@ -61,10 +62,20 @@ void testFA()
 	menu.start();
 }
 
+void testGrammar() 
+{
+	Grammar g{ "C:\\Users\\andre\\Desktop\\folders\\facultate\\sem_5\\compilers\\week8\\g2.txt" };
+
+	g.displayNonTerminals();
+	g.displayTerminals();
+	g.displayProduction("constant");
+}
+
 int main() 
 {
-	testScanner();
+	//testScanner();
 	//testFA();
+	testGrammar();
 
 	return 0;
 }

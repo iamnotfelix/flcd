@@ -1,0 +1,41 @@
+program program_block declarations statements statement_block declaration list_declaration type variable value constant assign_statement list_assign_statement i_statement o_statement min_max_statement if_else_statement while_statement expression arithmetic_operators min_max logical_expression else_statement logical_operators identifier non_digit all lower_letter upper_letter underscore digit number_constant sign non_zero_digit zero bool_constant string_constant
+SPACE EQUAL OPEN_CURLY CLOSE_CURLY OPEN_ROUNDED CLOSE_ROUNDED OPEN_SQUARE CLOSE_SQUARE ANY_CHARACTER return list int bool string input print min max if else while true false , ; " + - * / % < > <= >= == != _ a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 0 1 2 3 4 5 6 7 8 9
+program
+program = { program_block }
+program_block = declarations | statements
+declarations = declaration | list_declaration
+declaration = type SPACE variable { , variable } ;
+list_declaration = list SPACE type OPEN_SQUARE number_constant CLOSE_SQUARE identifier ;
+variable = identifier [ EQUAL value ] { , identifier [ EQUAL value ] }
+type = int | bool | string
+value = constant | identifier
+constant = number_constant | bool_constant | string_constant
+statements = { statement_block }
+statement_block = assign_statement | list_assign_statement | i_statement | o_statement | min_max_statement | if_else_statement | while_statement | return ;
+assign_statement = identifier EQUAL expression ;
+list_assign_statement = identifier OPEN_SQUARE number_constant CLOSE_SQUARE EQUAL expression ;
+expression = [ OPEN_ROUNDED ] expression arithmetic_operators expression [ CLOSE_ROUNDED ] | identifier | number_constant
+arithmetic_operators = + | - | * | / | %
+i_statement = input OPEN_ROUNDED identifier CLOSE_ROUNDED ;
+o_statement = print OPEN_ROUNDED value CLOSE_ROUNDED ;
+min_max_statement = min_max OPEN_ROUNDED value { , value } CLOSE_ROUNDED ;
+min_max = min | max
+if_else_statement = if OPEN_ROUNDED logical_expression CLOSE_ROUNDED OPEN_CURLY statements CLOSE_CURLY
+else_statement = else OPEN_CURLY statements CLOSE_CURLY 
+logical_expression = value logical_operators value
+logical_operators = < | > | <= | >= | == | !=
+while_statement = while OPEN_ROUNDED logical_expression CLOSE_ROUNDED OPEN_CURLY statements CLOSE_CURLY
+identifier = non_digit | non_digit { all }
+non_digit = lower_letter | upper_letter | underscore
+all = lower_letter | upper_letter | digit | underscore
+upper_letter = A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
+lower_letter = a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z
+digit = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+underscore = _
+number_constant = sign non_zero_digit{digit} | non_zero_digit{digit} | zero
+non_zero_digit = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+digit = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+sign = - | +
+zero = 0
+bool_constant = true | false | 0 | 1
+string_constant = " { ANY_CHARACTER } "
