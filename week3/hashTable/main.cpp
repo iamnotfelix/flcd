@@ -3,6 +3,8 @@
 #include "FiniteAutomata.h"
 #include "Menu.h"
 #include "Grammar.h"
+#include "Parser.h"
+#include "ParserOutput.h"
 
 #include <iostream>
 
@@ -71,11 +73,74 @@ void testGrammar()
 	g.displayProduction("constant");
 }
 
+void testParser()
+{
+	try {
+		// lr(0)
+		Grammar g{ "C:\\Users\\andre\\Desktop\\folders\\facultate\\sem_5\\compilers\\week8\\g3.txt" };
+		Parser p(g);
+		p.createCanonicalCollection();
+
+		// parsing table
+		p.createParsingTable();
+		cout << p.toString();
+
+		int i = 0;
+		for (auto row : p.parsingTable)
+		{
+			cout << "s" << to_string(i++) << ": ";
+			switch (row.action)
+			{
+			case Action::Accept:
+				cout << "accept" << endl;
+				break;
+			case Action::Reduce:
+				cout << "reduce " << row.production.toString() << endl;
+				break;
+			case Action::Shift:
+				cout << "shift" << endl;
+				for (auto [atom, stateIndex] : row.gotos)
+					cout << '\t' << atom << " " << p.cannonicalCollection[stateIndex].toString(stateIndex) << endl;
+				break;
+			case Action::ShiftReduceConflict:
+				cout << "shift-reduce" << endl;
+				for (auto [atom, stateIndex] : row.gotos)
+					cout << '\t' << atom << " " << p.cannonicalCollection[stateIndex].toString(stateIndex) << endl;
+				break;
+			default:
+				break;
+			}
+		}
+		cout << endl;
+
+		// parsing sequence
+		vector<Item> output = p.parse({ "a", "b", "b", "c" });
+		for (Item i : output) cout << i.toString() << endl;
+		cout << endl;
+
+		// parser output/parsing tree
+		ParserOutput po{ g, output };
+
+		po.createParsingTree();
+		po.display();
+	}
+	catch (const string& s)
+	{
+		cout << s << endl;
+	}
+	catch (const exception& e)
+	{
+		cout << e.what() << endl;
+	}
+
+}
+
 int main() 
 {
 	//testScanner();
 	//testFA();
-	testGrammar();
+	//testGrammar();
+	testParser();
 
 	return 0;
 }

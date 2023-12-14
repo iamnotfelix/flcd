@@ -5,18 +5,24 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <algorithm> 
+#include <cctype>
+#include <locale>
 
 using namespace std;
 
 class Grammar
 {
-private:
+public:
 	unordered_set<string> terminals;
 	unordered_set<string> nonterminals;
 	string start;
-	unordered_map<string, vector<string>> productions;
+	unordered_map<string, vector<vector<string>>> productions;
 	unordered_map<string, string> specialTerminals{
-		{"SPACE", " " }, 
+		{ "SPACE", " " }, 
 		{ "EQUAL", "=" }, 
 		{ "OPEN_CURLY", "{" }, 
 		{ "CLOSE_CURLY", "}" }, 
@@ -28,9 +34,8 @@ private:
 	};
 
 	vector<string> parseTerminalsAndNonTerminals(string input);
-	pair<string, vector<string>> parseProduction(string production);
+	pair<string, vector<vector<string>>> parseProduction(string production);
 
-public:
 	Grammar(string file);
 	void displayTerminals();
 	void displayNonTerminals();
